@@ -61,6 +61,7 @@ logs/
 *.log
 tmp/
 temp/
+globalConfig.json
 
 # ========================
 # Package manager locks (optional – uncomment if desired)
