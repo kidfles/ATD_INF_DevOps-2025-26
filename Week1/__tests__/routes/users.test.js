@@ -1,4 +1,3 @@
-const { ExpectationFailed } = require('http-errors');
 
 const request = require('supertest')
 
