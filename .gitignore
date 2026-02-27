@@ -1,0 +1,68 @@
+# ========================
+# Node.js
+# ========================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ========================
+# Environment & Secrets
+# ========================
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.crt
+
+# ========================
+# Build / Output
+# ========================
+dist/
+build/
+out/
+coverage/
+
+# ========================
+# OS Files
+# ========================
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# ========================
+# IDE / Editor
+# ========================
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ========================
+# Docker (DevOps)
+# ========================
+docker-compose.override.yml
+
+# ========================
+# CI/CD & Infrastructure
+# ========================
+*.tfstate
+*.tfstate.backup
+.terraform/
+*.tfvars
+!*.tfvars.example
+
+# ========================
+# Logs & Temp
+# ========================
+logs/
+*.log
+tmp/
+temp/
+
+# ========================
+# Package manager locks (optional – uncomment if desired)
+# ========================
+# package-lock.json
