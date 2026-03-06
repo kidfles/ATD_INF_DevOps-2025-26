@@ -1,0 +1,1 @@
+als het goed is kan ik dti niet direct pushen
