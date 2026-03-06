@@ -1,18 +1,21 @@
 var express = require('express');
 var router = express.Router();
 
-const { db } = require("../services/database");
+const { MongoClient } = require("mongodb");
+// Connection URI
+const uri = "mongodb://mydatabase:27017";
+
+const client = new MongoClient(uri);
+db = client.db("mydb");
 
 /* GET users listing. */
-router.get('/', async function (req, res) {
+router.get('/', async function (req, res, next) {
   let users = await db.collection('users').find().toArray();
   res.json(users);
 });
 
-router.post('/', function (req, res) {
-  db.collection('users').insertOne(req.body)
-    .then((user) => res.status(201).json({ "id": user.insertedId }))
-    .catch(err => res.status(500).json(err));
+router.post('/', function (req, res, next) {
+  res.json(db.collection('users').insertOne(req.body));
 })
 
 module.exports = router;
