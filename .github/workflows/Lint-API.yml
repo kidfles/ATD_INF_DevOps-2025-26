@@ -2,9 +2,8 @@ name: Lint-API
 
 on:
   push:
-    paths:
-      - 'api/**'
-      - '.github/workflows/Lint-API.yml'
+    branches:
+      - development
   pull_request:
     branches:
       - development
