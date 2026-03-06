@@ -16,7 +16,7 @@ jobs:
         working-directory: ./api
     permissions:
       checks: write
-      pull-request: write
+      pull_request: write
       contents: read
        
 
