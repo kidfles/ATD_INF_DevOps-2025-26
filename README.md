@@ -1,5 +1,5 @@
 # ATD_INF_DevOps-2025-26
-[![CI-API](https://github.com/cy-spok/ATD_INF_DevOps-2025-26/actions/workflows/CI-API.yml/badge.svg)](https://github.com/cy-spok/ATD_INF_DevOps-2025-26/actions/workflows/CI-API.yml)
+[![CI-API](https://github.com/kidfles/ATD_INF_DevOps-2025-26/actions/workflows/CI-API.yml/badge.svg?branch=feat-update-CI-API)](https://github.com/kidfles/ATD_INF_DevOps-2025-26/actions/workflows/CI-API.yml)
 
 ## Projectbeschrijving
 Welkom bij het DevOps-project voor het studiejaar 2025-2026! 
