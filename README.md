@@ -1,5 +1,6 @@
 # ATD_INF_DevOps-2025-26
-[![CI-API](https://github.com/kidfles/ATD_INF_DevOps-2025-26/actions/workflows/CI-API.yml/badge.svg?branch=feat-update-CI-API)](https://github.com/kidfles/ATD_INF_DevOps-2025-26/actions/workflows/CI-API.yml)
+[![Test-API](https://github.com/kidfles/ATD_INF_DevOps-2025-26/actions/workflows/CI-API.yml/badge.svg?branch=development)](https://github.com/kidfles/ATD_INF_DevOps-2025-26/actions/workflows/CI-API.yml)
+[![Lint-API](https://github.com/kidfles/ATD_INF_DevOps-2025-26/actions/workflows/Lint-API.yml/badge.svg?branch=development)](https://github.com/kidfles/ATD_INF_DevOps-2025-26/actions/workflows/Lint-API.yml)
 
 ## Projectbeschrijving
 Welkom bij het DevOps-project voor het studiejaar 2025-2026! 
