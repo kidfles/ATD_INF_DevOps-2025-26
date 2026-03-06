@@ -2,8 +2,8 @@ name: CI-API
 
 on:
   push:
-    paths:
-      - 'api/**'
+    branches:
+      - development
   pull_request:
     branches:
       - development
