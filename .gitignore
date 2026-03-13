@@ -2,6 +2,7 @@
 # Node.js
 # ========================
 node_modules/
+**/node_modules/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
@@ -20,9 +21,12 @@ yarn-error.log*
 # Build / Output
 # ========================
 dist/
+**/dist/
 build/
+**/build/
 out/
 coverage/
+**/coverage/
 
 # ========================
 # OS Files
@@ -41,9 +45,11 @@ Desktop.ini
 *~
 
 # ========================
-# Docker (DevOps)
+# Docker & Database
 # ========================
 docker-compose.override.yml
+data/
+mongo-data/
 
 # ========================
 # CI/CD & Infrastructure
@@ -58,12 +64,15 @@ docker-compose.override.yml
 # Logs & Temp
 # ========================
 logs/
+**/logs/
 *.log
 tmp/
 temp/
 globalConfig.json
+.jest-test-results.json
 
 # ========================
 # Package manager locks (optional – uncomment if desired)
 # ========================
 # package-lock.json
+

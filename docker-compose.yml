@@ -11,11 +11,14 @@ services:
 
   db:
     image: mongo:latest
+    restart: always
     environment:
       - MONGO_INITDB_ROOT_USERNAME=admin
       - MONGO_INITDB_ROOT_PASSWORD=secretpassword
+      - MONGO_INITDB_DATABASE=mydb
     volumes:
       - mongo-data:/data/db
+      - ./mongo-init/seed.js:/docker-entrypoint-initdb.d/seed.js:ro
 
   client:
     build: ./client
