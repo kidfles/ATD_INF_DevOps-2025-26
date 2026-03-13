@@ -1,7 +1,6 @@
 var express = require('express');
 var router = express.Router();
-
-const { db } = require("../services/database");
+const { db } = require('../services/database');
 
 /* GET users listing. */
 router.get('/', async function (req, res) {
@@ -9,10 +8,9 @@ router.get('/', async function (req, res) {
   res.json(users);
 });
 
-router.post('/', function (req, res) {
-  db.collection('users').insertOne(req.body)
-    .then((user) => res.status(201).json({ "id": user.insertedId }))
-    .catch(err => res.status(500).json(err));
-})
+router.post('/', async function (req, res) {
+  const result = await db.collection('users').insertOne(req.body);
+  res.json(result);
+});
 
-module.exports = router;
+module.exports = router;
