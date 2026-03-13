@@ -1,13 +1,18 @@
 services:
   api:
     build: ./api
+    command: npm run dev  # Gebruik nodemon voor live updates
     ports:
       - "3000:3000"
     environment:
       - MONGO_URL=mongodb://admin:secretpassword@db:27017?authSource=admin
       - DB_NAME=mydb
+    volumes:
+      - ./api:/app        # Mount de code voor live updates
+      - /app/node_modules # Voorkom dat lokale node_modules de container overschrijven
     depends_on:
-      - db
+      db:
+        condition: service_started
 
   db:
     image: mongo:latest
