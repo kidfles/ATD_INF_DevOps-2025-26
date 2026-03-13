@@ -1,15 +1,15 @@
 services:
   api:
     build: ./api
-    command: npm run dev  # Gebruik nodemon voor live updates
+    command: npm run dev
     ports:
       - "3000:3000"
     environment:
       - MONGO_URL=mongodb://admin:secretpassword@db:27017?authSource=admin
       - DB_NAME=mydb
     volumes:
-      - ./api:/app        # Mount de code voor live updates
-      - /app/node_modules # Voorkom dat lokale node_modules de container overschrijven
+      - ./api:/app
+      - /app/node_modules
     depends_on:
       db:
         condition: service_started
@@ -26,11 +26,17 @@ services:
       - ./mongo-init/seed.js:/docker-entrypoint-initdb.d/seed.js:ro
 
   client:
-    build: ./client
+    build: 
+      context: ./client
+      target: build # We use the first stage but override the command
     ports:
-      - "8080:80"
+      - "4200:4200"
+    volumes:
+      - ./client:/app
+      - /app/node_modules
     environment:
-      - VITE_API_URL=http://localhost:3000
+      - API_URL=http://localhost:3000
+    command: npx -y @angular/cli serve --host 0.0.0.0 --poll 2000
     depends_on:
       - api
 

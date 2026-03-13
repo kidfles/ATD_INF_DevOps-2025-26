@@ -1,4 +1,3 @@
-
 FROM node:20.12.2-alpine
 
 # Stel de werkmap in 
