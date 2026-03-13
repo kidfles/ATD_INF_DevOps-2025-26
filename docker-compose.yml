@@ -1,0 +1,44 @@
+services:
+  api:
+    build: ./api
+    command: npm run dev
+    ports:
+      - "3000:3000"
+    environment:
+      - MONGO_URL=mongodb://admin:secretpassword@db:27017?authSource=admin
+      - DB_NAME=mydb
+    volumes:
+      - ./api:/app
+      - /app/node_modules
+    depends_on:
+      db:
+        condition: service_started
+
+  db:
+    image: mongo:latest
+    restart: always
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=secretpassword
+      - MONGO_INITDB_DATABASE=mydb
+    volumes:
+      - mongo-data:/data/db
+      - ./mongo-init/seed.js:/docker-entrypoint-initdb.d/seed.js:ro
+
+  client:
+    build: 
+      context: ./client
+      target: build # We use the first stage but override the command
+    ports:
+      - "4200:4200"
+    volumes:
+      - ./client:/app
+      - /app/node_modules
+    environment:
+      - API_URL=http://localhost:3000
+    command: npx -y @angular/cli serve --host 0.0.0.0 --poll 2000
+    depends_on:
+      - api
+
+volumes:
+  mongo-data:

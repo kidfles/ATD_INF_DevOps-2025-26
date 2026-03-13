@@ -1,5 +1,4 @@
-# Gebruik een vaste versie van NodeJS 
-FROM node:20
+FROM node:20.12.2-alpine
 
 # Stel de werkmap in 
 WORKDIR /app
@@ -13,4 +12,4 @@ COPY . .
 
 EXPOSE 3000
 
-CMD npm start
+CMD ["npm", "start"]
