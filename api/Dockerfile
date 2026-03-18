@@ -5,13 +5,13 @@ COPY package*.json ./
 RUN npm install
 COPY . .
 
-# Stage 2: Serve via nginx + node
-FROM nginx:alpine
-RUN apk add --no-cache nodejs
+# Stage 2: Run via nginx + node
+FROM node:20-alpine
+RUN apk add --no-cache nginx
 WORKDIR /app
 COPY --from=build /app .
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 COPY start.sh /start.sh
-RUN chmod +x /start.sh
+RUN sed -i 's/\r//' /start.sh && chmod +x /start.sh
 EXPOSE 80
 CMD ["/start.sh"]
