@@ -23,6 +23,7 @@ components:
         dockerCompose:
             build:
                 context: ./api
+                dockerfile: Dockerfile
             ports:
                 - '80:80'
             environment:
