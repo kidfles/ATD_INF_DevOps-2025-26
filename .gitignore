@@ -55,7 +55,6 @@ mongo-data/
 # Angular Specific
 # ========================
 .angular/
-**/src/assets/config.json
 
 # ========================
 # CI/CD & Infrastructure
