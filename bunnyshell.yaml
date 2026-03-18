@@ -14,7 +14,6 @@ components:
                 MONGO_INITDB_DATABASE: mydb
             volumes:
                 - mongo-data:/data/db
-                - ./mongo-init/seed.js:/docker-entrypoint-initdb.d/seed.js:ro
     -
         kind: Application
         name: api
@@ -61,3 +60,5 @@ components:
                 hostname: 'client-{{ env.base_domain }}'
                 path: /
                 servicePort: 80
+volumes:
+    mongo-data: {}
