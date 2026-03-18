@@ -91,6 +91,9 @@
         },
         "serve": {
           "builder": "@angular/build:dev-server",
+          "options": {
+            "allowedHosts": ["client-bgvtk7.bunnyenv.com"]
+          },
           "configurations": {
             "production": {
               "buildTarget": "client:build:production"
