@@ -24,7 +24,7 @@ components:
             build:
                 context: ./api
             ports:
-                - '3000:3000'
+                - '80:80'
             environment:
                 MONGO_URL: 'mongodb://admin:secretpassword@db:27017?authSource=admin'
                 DB_NAME: mydb
@@ -37,7 +37,7 @@ components:
             -
                 hostname: 'api-{{ env.base_domain }}'
                 path: /
-                servicePort: 3000
+                servicePort: 80
     -
         kind: Application
         name: client

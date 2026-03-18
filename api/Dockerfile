@@ -1,15 +1,17 @@
-FROM node:20.12.2-alpine
-
-# Stel de werkmap in 
+# Stage 1: Build
+FROM node:20-alpine AS build
 WORKDIR /app
-
-# Kopieer eerst de package configs en installeer afhankelijkheden
 COPY package*.json ./
 RUN npm install
-
-# Neem alle overige code mee 
 COPY . .
 
-EXPOSE 3000
-
-CMD ["npm", "start"]
+# Stage 2: Serve via nginx + node
+FROM nginx:alpine
+RUN apk add --no-cache nodejs
+WORKDIR /app
+COPY --from=build /app .
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY start.sh /start.sh
+RUN chmod +x /start.sh
+EXPOSE 80
+CMD ["/start.sh"]
