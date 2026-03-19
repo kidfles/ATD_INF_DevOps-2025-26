@@ -41,6 +41,27 @@ components:
                 servicePort: 80
     -
         kind: Application
+        name: rabbitmq
+        dockerCompose:
+            image: 'rabbitmq:3-management'
+            environment:
+                RABBITMQ_DEFAULT_USER: guest
+                RABBITMQ_DEFAULT_PASS: guest
+            ports:
+                - '5672:5672'
+                - '15672:15672'
+            deploy:
+                resources:
+                    limits:
+                        cpus: '0.25'
+                        memory: '512MiB'
+        hosts:
+            -
+                hostname: 'rabbitmq-{{ env.base_domain }}'
+                path: /
+                servicePort: 15672
+    -
+        kind: Application
         name: client
         gitRepo: 'https://github.com/kidfles/ATD_INF_DevOps-2025-26.git'
         gitBranch: development
