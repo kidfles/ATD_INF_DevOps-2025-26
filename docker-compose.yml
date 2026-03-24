@@ -1,8 +1,6 @@
 services:
   api:
-    build:
-      context: ./api
-      target: build
+    build: ./api
     command: npm run dev
     ports:
       - "3000:3000"
@@ -28,10 +26,9 @@ services:
       - ./mongo-init/seed.js:/docker-entrypoint-initdb.d/seed.js:ro
 
   client:
-    build:
+    build: 
       context: ./client
-      target: build
-
+      target: build # We use the first stage but override the command
     ports:
       - "4200:4200"
     volumes:
@@ -42,15 +39,6 @@ services:
     command: npx -y @angular/cli serve --host 0.0.0.0 --poll 2000
     depends_on:
       - api
-
-  rabbitmq:
-    image: rabbitmq:3-management
-    ports:
-      - "5672:5672"
-      - "15672:15672"
-    environment:
-      - RABBITMQ_DEFAULT_USER=guest
-      - RABBITMQ_DEFAULT_PASS=guest
 
 volumes:
   mongo-data:
