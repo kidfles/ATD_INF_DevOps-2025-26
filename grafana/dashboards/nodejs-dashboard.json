@@ -1,0 +1,318 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": "-- Grafana --",
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "description": "node.js prometheus client basic metrics",
+  "editable": true,
+  "gnetId": 11159,
+  "graphTooltip": 0,
+  "id": null,
+  "links": [],
+  "panels": [
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "fill": 1,
+      "gridPos": { "h": 7, "w": 10, "x": 0, "y": 0 },
+      "id": 6,
+      "legend": { "alignAsTable": true, "avg": true, "current": true, "max": true, "min": true, "show": true, "total": false, "values": true },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "percentage": false,
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        { "expr": "irate(process_cpu_user_seconds_total{instance=~\"$instance\"}[2m]) * 100", "format": "time_series", "intervalFactor": 1, "legendFormat": "User CPU - {{instance}}", "refId": "A" },
+        { "expr": "irate(process_cpu_system_seconds_total{instance=~\"$instance\"}[2m]) * 100", "format": "time_series", "intervalFactor": 1, "legendFormat": "Sys CPU - {{instance}}", "refId": "B" }
+      ],
+      "thresholds": [],
+      "title": "Process CPU Usage",
+      "tooltip": { "shared": true, "sort": 0, "value_type": "individual" },
+      "type": "graph",
+      "xaxis": { "mode": "time", "show": true },
+      "yaxes": [
+        { "format": "percent", "logBase": 1, "show": true },
+        { "format": "short", "logBase": 1, "show": true }
+      ]
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "fill": 1,
+      "gridPos": { "h": 7, "w": 9, "x": 10, "y": 0 },
+      "id": 8,
+      "legend": { "alignAsTable": true, "avg": true, "current": true, "max": true, "min": true, "show": true, "total": false, "values": true },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "percentage": false,
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        { "expr": "nodejs_eventloop_lag_seconds{instance=~\"$instance\"}", "format": "time_series", "intervalFactor": 1, "legendFormat": "{{instance}}", "refId": "A" }
+      ],
+      "thresholds": [],
+      "title": "Event Loop Lag",
+      "tooltip": { "shared": true, "sort": 0, "value_type": "individual" },
+      "type": "graph",
+      "xaxis": { "mode": "time", "show": true },
+      "yaxes": [
+        { "format": "s", "logBase": 1, "show": true },
+        { "format": "short", "logBase": 1, "show": true }
+      ]
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "fieldConfig": {
+        "defaults": { "mappings": [], "thresholds": { "mode": "absolute", "steps": [{ "color": "green", "value": null }] } },
+        "overrides": []
+      },
+      "gridPos": { "h": 3, "w": 5, "x": 19, "y": 0 },
+      "id": 2,
+      "options": { "colorMode": "value", "graphMode": "none", "justifyMode": "auto", "textMode": "auto", "reduceOptions": { "calcs": ["lastNotNull"], "fields": "/^version$/", "values": false } },
+      "targets": [
+        { "expr": "sum(nodejs_version_info{instance=~\"$instance\"}) by (version)", "format": "time_series", "intervalFactor": 1, "legendFormat": "{{version}}", "refId": "A" }
+      ],
+      "title": "Node.js Version",
+      "type": "stat"
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "fieldConfig": {
+        "defaults": { "mappings": [], "thresholds": { "mode": "absolute", "steps": [{ "color": "green", "value": null }, { "color": "red", "value": 1 }] } },
+        "overrides": []
+      },
+      "gridPos": { "h": 4, "w": 5, "x": 19, "y": 3 },
+      "id": 4,
+      "options": { "colorMode": "value", "graphMode": "area", "justifyMode": "auto", "textMode": "auto", "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false } },
+      "targets": [
+        { "expr": "sum(changes(process_start_time_seconds{instance=~\"$instance\"}[1m]))", "format": "time_series", "intervalFactor": 1, "legendFormat": "{{instance}}", "refId": "A" }
+      ],
+      "title": "Process Restart Times",
+      "type": "stat"
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "fill": 1,
+      "gridPos": { "h": 7, "w": 16, "x": 0, "y": 7 },
+      "id": 7,
+      "legend": { "alignAsTable": true, "avg": true, "current": true, "max": true, "min": true, "rightSide": true, "show": true, "total": false, "values": true },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "percentage": false,
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        { "expr": "process_resident_memory_bytes{instance=~\"$instance\"}", "format": "time_series", "intervalFactor": 1, "legendFormat": "Process Memory - {{instance}}", "refId": "A" },
+        { "expr": "nodejs_heap_size_total_bytes{instance=~\"$instance\"}", "format": "time_series", "intervalFactor": 1, "legendFormat": "Heap Total - {{instance}}", "refId": "B" },
+        { "expr": "nodejs_heap_size_used_bytes{instance=~\"$instance\"}", "format": "time_series", "intervalFactor": 1, "legendFormat": "Heap Used - {{instance}}", "refId": "C" },
+        { "expr": "nodejs_external_memory_bytes{instance=~\"$instance\"}", "format": "time_series", "intervalFactor": 1, "legendFormat": "External Memory - {{instance}}", "refId": "D" }
+      ],
+      "thresholds": [],
+      "title": "Process Memory Usage",
+      "tooltip": { "shared": true, "sort": 0, "value_type": "individual" },
+      "type": "graph",
+      "xaxis": { "mode": "time", "show": true },
+      "yaxes": [
+        { "format": "bytes", "logBase": 1, "show": true },
+        { "format": "short", "logBase": 1, "show": true }
+      ]
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "fill": 1,
+      "gridPos": { "h": 7, "w": 8, "x": 16, "y": 7 },
+      "id": 9,
+      "legend": { "alignAsTable": true, "avg": true, "current": true, "max": true, "min": true, "show": true, "total": false, "values": true },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "percentage": false,
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        { "expr": "nodejs_active_handles_total{instance=~\"$instance\"}", "format": "time_series", "intervalFactor": 1, "legendFormat": "Active Handler - {{instance}}", "refId": "A" },
+        { "expr": "nodejs_active_requests_total{instance=~\"$instance\"}", "format": "time_series", "intervalFactor": 1, "legendFormat": "Active Request - {{instance}}", "refId": "B" }
+      ],
+      "thresholds": [],
+      "title": "Active Handlers/Requests Total",
+      "tooltip": { "shared": true, "sort": 0, "value_type": "individual" },
+      "type": "graph",
+      "xaxis": { "mode": "time", "show": true },
+      "yaxes": [
+        { "format": "short", "logBase": 1, "show": true },
+        { "format": "short", "logBase": 1, "show": true }
+      ]
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "fill": 1,
+      "gridPos": { "h": 8, "w": 8, "x": 0, "y": 14 },
+      "id": 10,
+      "legend": { "alignAsTable": true, "avg": true, "current": true, "max": true, "min": true, "show": true, "total": false, "values": true },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "percentage": false,
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        { "expr": "nodejs_heap_space_size_total_bytes{instance=~\"$instance\"}", "format": "time_series", "intervalFactor": 1, "legendFormat": "Heap Total - {{instance}} - {{space}}", "refId": "A" }
+      ],
+      "thresholds": [],
+      "title": "Heap Total Detail",
+      "tooltip": { "shared": true, "sort": 0, "value_type": "individual" },
+      "type": "graph",
+      "xaxis": { "mode": "time", "show": true },
+      "yaxes": [
+        { "format": "bytes", "logBase": 1, "show": true },
+        { "format": "short", "logBase": 1, "show": true }
+      ]
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "fill": 1,
+      "gridPos": { "h": 8, "w": 8, "x": 8, "y": 14 },
+      "id": 11,
+      "legend": { "alignAsTable": true, "avg": true, "current": true, "max": true, "min": true, "show": true, "total": false, "values": true },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "percentage": false,
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        { "expr": "nodejs_heap_space_size_used_bytes{instance=~\"$instance\"}", "format": "time_series", "intervalFactor": 1, "legendFormat": "Heap Used - {{instance}} - {{space}}", "refId": "A" }
+      ],
+      "thresholds": [],
+      "title": "Heap Used Detail",
+      "tooltip": { "shared": true, "sort": 0, "value_type": "individual" },
+      "type": "graph",
+      "xaxis": { "mode": "time", "show": true },
+      "yaxes": [
+        { "format": "bytes", "logBase": 1, "show": true },
+        { "format": "short", "logBase": 1, "show": true }
+      ]
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "fill": 1,
+      "gridPos": { "h": 8, "w": 8, "x": 16, "y": 14 },
+      "id": 12,
+      "legend": { "alignAsTable": true, "avg": true, "current": true, "max": true, "min": true, "show": true, "total": false, "values": true },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "percentage": false,
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        { "expr": "nodejs_heap_space_size_available_bytes{instance=~\"$instance\"}", "format": "time_series", "intervalFactor": 1, "legendFormat": "Heap Available - {{instance}} - {{space}}", "refId": "A" }
+      ],
+      "thresholds": [],
+      "title": "Heap Available Detail",
+      "tooltip": { "shared": true, "sort": 0, "value_type": "individual" },
+      "type": "graph",
+      "xaxis": { "mode": "time", "show": true },
+      "yaxes": [
+        { "format": "bytes", "logBase": 1, "show": true },
+        { "format": "short", "logBase": 1, "show": true }
+      ]
+    }
+  ],
+  "schemaVersion": 39,
+  "style": "dark",
+  "tags": [ "nodejs" ],
+  "templating": {
+    "list": [
+      {
+        "allValue": "",
+        "current": { "selected": true, "text": "All", "value": "$__all" },
+        "datasource": { "type": "prometheus", "uid": "prometheus" },
+        "definition": "label_values(nodejs_version_info, instance)",
+        "hide": 0,
+        "includeAll": true,
+        "label": "instance",
+        "multi": true,
+        "name": "instance",
+        "query": "label_values(nodejs_version_info, instance)",
+        "refresh": 1,
+        "regex": "",
+        "sort": 1,
+        "type": "query"
+      }
+    ]
+  },
+  "time": { "from": "now-1h", "to": "now" },
+  "timepicker": {},
+  "timezone": "",
+  "title": "NodeJS Application Dashboard",
+  "uid": "nodejs-app",
+  "version": 1
+}

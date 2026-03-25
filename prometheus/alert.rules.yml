@@ -1,0 +1,11 @@
+groups:
+  - name: service.rules
+    rules:
+      - alert: ServiceDown
+        expr: up == 0
+        for: 30s
+        labels:
+          severity: Critical
+        annotations:
+          summary: "Service {{ $labels.job }} is down"
+          description: "{{ $labels.instance }} van job {{ $labels.job }} is al meer dan 30 seconden niet bereikbaar."
