@@ -56,9 +56,9 @@ Angular frontend die draait op port 4200. Communiceert met de API voor het beher
 
 ### Monitoring
 
-- **Prometheus** (port 9090) — scrapet metrics van de API, Audit Service en MongoDB
-- **Grafana** (port 3001) — dashboards voor Node.js metrics en MongoDB
-- **Alertmanager** (port 9093) — stuurt alerts via e-mail bij problemen
+- **Prometheus** (port 9090) - scrapet metrics van de API, Audit Service en MongoDB
+- **Grafana** (port 3001) - dashboards voor Node.js metrics en MongoDB
+- **Alertmanager** (port 9093) - stuurt alerts via e-mail bij problemen
 
 ## Project starten
 
@@ -101,7 +101,7 @@ sleep 2
 curl http://localhost:3002/audit-logs
 ```
 
-Het resultaat toont een audit log met `"action": "user.created"` — bewijs dat het event via RabbitMQ is doorgekomen.
+Het resultaat toont een audit log met `"action": "user.created"` - bewijs dat het event via RabbitMQ is doorgekomen.
 
 ### Lokaal ontwikkelen (zonder Docker)
 
