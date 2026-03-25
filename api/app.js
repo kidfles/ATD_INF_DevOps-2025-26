@@ -4,16 +4,21 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors = require('cors');
+var promBundle = require('express-prom-bundle');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
+var metricsMiddleware = promBundle({
+  includeMethod: true,
+  includePath: true,
+  includeStatusCode: true,
+  promClient: { collectDefaultMetrics: {} }
+});
+
 var app = express();
-app.use(cors({
-  origin: '*',
-  methods: ['GET', 'POST', 'OPTIONS'],
-  allowedHeaders: ['Content-Type'],
-}));
+app.use(cors());
+app.use(metricsMiddleware);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
