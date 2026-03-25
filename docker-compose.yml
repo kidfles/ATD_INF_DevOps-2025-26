@@ -42,8 +42,10 @@ services:
 
   db-exporter:
     image: bitnami/mongodb-exporter:latest
-    environment:
-      - MONGODB_URI=mongodb://admin:secretpassword@db:27017/?authSource=admin
+    command:
+      - --mongodb.uri=mongodb://admin:secretpassword@db:27017/?authSource=admin
+      - --compatible-mode
+      - --collect-all
     depends_on:
       - db
 
