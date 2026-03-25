@@ -1,0 +1,26 @@
+global:
+  smtp_smarthost: 'smtp.sendgrid.net:587'
+  smtp_from: 'alertmanager@example.com'
+  smtp_auth_username: 'apikey'
+  smtp_auth_password: 'Ik heb hier geen zin in'
+
+receivers:
+  - name: mail
+    email_configs:
+      - to: 'ds.hoeksema@student.avans.nl'
+        headers:
+          Subject: "Alert ({{ .Status }}): {{ .CommonAnnotations.summary }}"
+        html: |
+          <h3>Prometheus Alert</h3>
+          <ul>
+          {{ range .Alerts }}
+          <li><strong>{{ .Labels.alertname }}</strong> op {{ .Labels.instance }}</li>
+          <li>{{ .Annotations.description }}</li>
+          {{ end }}
+          </ul>
+
+route:
+  group_wait: 10s
+  group_interval: 5m
+  receiver: mail
+  repeat_interval: 1h
