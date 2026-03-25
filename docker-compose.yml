@@ -7,12 +7,15 @@ services:
     environment:
       - MONGO_URL=mongodb://admin:secretpassword@db:27017?authSource=admin
       - DB_NAME=mydb
+      - RABBITMQ_URL=amqp://rabbitmq:5672
     volumes:
       - ./api:/app
       - /app/node_modules
     depends_on:
       db:
         condition: service_started
+      rabbitmq:
+        condition: service_healthy
 
   db:
     image: mongo:latest
@@ -39,6 +42,48 @@ services:
     command: npx -y @angular/cli serve --host 0.0.0.0 --poll 2000
     depends_on:
       - api
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    healthcheck:
+      test: rabbitmq-diagnostics -q ping
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  audit-db:
+    image: mongo:latest
+    restart: always
+    ports:
+      - "27018:27017"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=secretpassword
+      - MONGO_INITDB_DATABASE=auditdb
+    volumes:
+      - audit-mongo-data:/data/db
+
+  audit-service:
+    build: ./audit-service
+    command: npm run dev
+    ports:
+      - "3002:3002"
+    environment:
+      - MONGO_URL=mongodb://admin:secretpassword@audit-db:27017?authSource=admin
+      - DB_NAME=auditdb
+      - RABBITMQ_URL=amqp://rabbitmq:5672
+      - PORT=3002
+    volumes:
+      - ./audit-service:/app
+      - /app/node_modules
+    depends_on:
+      audit-db:
+        condition: service_started
+      rabbitmq:
+        condition: service_healthy
 
   db-exporter:
     image: bitnami/mongodb-exporter:latest
@@ -78,3 +123,4 @@ services:
 
 volumes:
   mongo-data:
+  audit-mongo-data:

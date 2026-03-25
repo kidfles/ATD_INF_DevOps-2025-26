@@ -1,6 +1,12 @@
 # ATD_INF_DevOps-2025-26
+
+## API
 [![Test-API](https://github.com/kidfles/ATD_INF_DevOps-2025-26/actions/workflows/CI-API.yml/badge.svg?branch=development)](https://github.com/kidfles/ATD_INF_DevOps-2025-26/actions/workflows/CI-API.yml)
 [![Lint-API](https://github.com/kidfles/ATD_INF_DevOps-2025-26/actions/workflows/Lint-API.yml/badge.svg?branch=development)](https://github.com/kidfles/ATD_INF_DevOps-2025-26/actions/workflows/Lint-API.yml)
+
+## Audit Service
+[![CI-AuditService](https://github.com/kidfles/ATD_INF_DevOps-2025-26/actions/workflows/CI-AuditService.yml/badge.svg?branch=development)](https://github.com/kidfles/ATD_INF_DevOps-2025-26/actions/workflows/CI-AuditService.yml)
+[![Lint-AuditService](https://github.com/kidfles/ATD_INF_DevOps-2025-26/actions/workflows/Lint-AuditService.yml/badge.svg?branch=development)](https://github.com/kidfles/ATD_INF_DevOps-2025-26/actions/workflows/Lint-AuditService.yml)
 
 ## Projectbeschrijving
 Welkom bij het DevOps-project voor het studiejaar 2025-2026! 
