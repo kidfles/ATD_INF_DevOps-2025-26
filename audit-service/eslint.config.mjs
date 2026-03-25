@@ -30,6 +30,6 @@ export default defineConfig([{
     },
 
     rules: {
-        "no-unused-vars": ["error", { "argsIgnorePattern": "^_" }]
+        "no-unused-vars": ["error", { "argsIgnorePattern": "^_", "caughtErrorsIgnorePattern": "^_" }]
     },
 }]);
