@@ -161,7 +161,7 @@ import { environment } from '../environments/environment';
 })
 export class App implements OnInit {
   private http = inject(HttpClient);
-  
+
   protected users = signal<any[]>([]);
   protected loading = signal(false);
   protected newName = signal('');
@@ -170,14 +170,17 @@ export class App implements OnInit {
   async ngOnInit() {
     this.loading.set(true);
     try {
-      // Load config first
       const config: any = await this.http.get('./assets/config.json').toPromise();
       if (config && config.apiUrl) {
         this.apiUrl = config.apiUrl;
       }
+    } catch {
+      // fetch and load users in the same block, was causing problems
+    }
+    try {
       await this.loadUsers();
     } catch (e) {
-      console.error('Failed to initialize app', e);
+      console.error('Failed to load users', e);
     } finally {
       this.loading.set(false);
     }
@@ -190,7 +193,7 @@ export class App implements OnInit {
 
   async addUser() {
     if (!this.newName()) return;
-    
+
     try {
       await this.http.post(`${this.apiUrl}/users`, { name: this.newName() }).toPromise();
       this.newName.set('');
