@@ -24,7 +24,7 @@
       "gridPos": { "h": 8, "w": 12, "x": 12, "y": 0 },
       "id": 9,
       "targets": [
-        { "expr": "rate(mongodb_metrics_document_total[$__rate_interval])", "format": "time_series", "intervalFactor": 2, "legendFormat": "{{state}}", "refId": "A" }
+        { "expr": "rate(mongodb_mongod_metrics_document_total[$__rate_interval])", "format": "time_series", "intervalFactor": 2, "legendFormat": "{{state}}", "refId": "A" }
       ],
       "title": "Document Operations",
       "type": "timeseries"
@@ -35,20 +35,9 @@
       "gridPos": { "h": 8, "w": 12, "x": 0, "y": 8 },
       "id": 8,
       "targets": [
-        { "expr": "rate(mongodb_metrics_query_executor_total[$__rate_interval])", "format": "time_series", "intervalFactor": 2, "legendFormat": "{{state}}", "refId": "A" }
+        { "expr": "rate(mongodb_mongod_metrics_query_executor_total[$__rate_interval])", "format": "time_series", "intervalFactor": 2, "legendFormat": "{{state}}", "refId": "A" }
       ],
       "title": "Query Executor",
-      "type": "timeseries"
-    },
-    {
-      "datasource": { "type": "prometheus", "uid": "prometheus" },
-      "fieldConfig": { "defaults": {}, "overrides": [] },
-      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 8 },
-      "id": 11,
-      "targets": [
-        { "expr": "rate(mongodb_op_counters_repl_total[$__rate_interval])", "format": "time_series", "intervalFactor": 2, "legendFormat": "{{type}}", "refId": "A" }
-      ],
-      "title": "Replica Query Operations",
       "type": "timeseries"
     },
     {
@@ -98,19 +87,8 @@
     },
     {
       "datasource": { "type": "prometheus", "uid": "prometheus" },
-      "fieldConfig": { "defaults": { "unit": "decbytes" }, "overrides": [] },
-      "gridPos": { "h": 8, "w": 8, "x": 0, "y": 20 },
-      "id": 6,
-      "targets": [
-        { "expr": "mongodb_replset_oplog_size_bytes", "format": "time_series", "intervalFactor": 2, "legendFormat": "{{type}}", "refId": "A" }
-      ],
-      "title": "Oplog Size",
-      "type": "timeseries"
-    },
-    {
-      "datasource": { "type": "prometheus", "uid": "prometheus" },
       "fieldConfig": { "defaults": { "unit": "decmbytes" }, "overrides": [] },
-      "gridPos": { "h": 8, "w": 8, "x": 8, "y": 20 },
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 20 },
       "id": 4,
       "targets": [
         { "expr": "mongodb_memory{type=~\"resident|virtual\"}", "format": "time_series", "intervalFactor": 2, "legendFormat": "{{type}}", "refId": "A" }
@@ -120,11 +98,12 @@
     },
     {
       "datasource": { "type": "prometheus", "uid": "prometheus" },
-      "fieldConfig": { "defaults": { "unit": "decbytes" }, "overrides": [] },
-      "gridPos": { "h": 8, "w": 8, "x": 16, "y": 20 },
+      "fieldConfig": { "defaults": { "unit": "Bps" }, "overrides": [] },
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 20 },
       "id": 5,
       "targets": [
-        { "expr": "rate(mongodb_network_bytes_total[$__rate_interval])", "format": "time_series", "intervalFactor": 2, "legendFormat": "{{state}}", "refId": "A" }
+        { "expr": "rate(mongodb_ss_network_bytesIn[$__rate_interval])", "format": "time_series", "intervalFactor": 2, "legendFormat": "bytes in", "refId": "A" },
+        { "expr": "rate(mongodb_ss_network_bytesOut[$__rate_interval])", "format": "time_series", "intervalFactor": 2, "legendFormat": "bytes out", "refId": "B" }
       ],
       "title": "Network I/O",
       "type": "timeseries"
