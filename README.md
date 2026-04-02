@@ -22,6 +22,23 @@ Browser → Client (Angular, port 4200)
 
 Wanneer een gebruiker wordt aangemaakt via `POST /users`, publiceert de API een `user.created` event naar RabbitMQ. De Audit Service luistert op de `audit-logs` queue, ontvangt het event en slaat het op in zijn eigen MongoDB database. Zo ontstaat een onafhankelijke audit trail zonder dat de services direct aan elkaar gekoppeld zijn.
 
+## Links en Logins overzicht
+
+Zodra je de applicatie [start via Docker](#project-starten), zijn deze links beschikbaar.
+
+| Service | Externe URL | Interne URL (in Docker netwerk) | Inloggegevens (Gebruiker / URL) | Extra Beschrijving |
+|---------|-------------|---------------------------------|---------------------------------|--------------------|
+| **Client Frontend** | [http://localhost:4200](http://localhost:4200) | `http://client:4200` | N/A | Angular applicatie waarmee de interactie start. |
+| **Express API** | [http://localhost:3000](http://localhost:3000) | `http://api:3000` | N/A | Hoofd API (Express) die verzoeken afhandelt. |
+| **Audit Service API** | [http://localhost:3002](http://localhost:3002) | `http://audit-service:3002` | N/A | API die zich richt op audit/log acties (Express). |
+| **RabbitMQ Management** | [http://localhost:15672](http://localhost:15672) | `amqp://rabbitmq:5672` | `guest` / `guest` | Berichtqueue, management interface. |
+| **Prometheus** | [http://localhost:9090](http://localhost:9090) | `http://prometheus:9090` | N/A | Tool voor het loggen en analyseren van applicatie-statistieken |
+| **Alertmanager** | [http://localhost:9093](http://localhost:9093) | `http://alertmanager:9093` | N/A | Verzendt alerts via bijv. e-mail. |
+| **Grafana** | [http://localhost:3001](http://localhost:3001) | `http://grafana:3000` | `admin` / `admin` | Dashboard(s) om stats van Prometheus visueel te zien. |
+| **MongoDB API** | N/A | `mongodb://db:27017` | `admin` / `secretpassword` | Database voor de API ('mydb' database) |
+| **MongoDB Audit Service** | `localhost:27018` | `mongodb://audit-db:27017` | `admin` / `secretpassword` | Database voor audit-service ('auditdb' database) |
+
+
 ## Services
 
 ### API
@@ -68,22 +85,16 @@ Angular frontend die draait op port 4200. Communiceert met de API voor het beher
 
 ### Met Docker (aanbevolen)
 
+Dit project is zo ingericht dat de makkelijkste manier om op te starten is met Docker Compose.
+
+In de terminal of command line type het volgende commando in de hoofd map (waar docker-compose.yml staat):
 ```bash
 docker-compose up --build -d
 ```
 
-Dit start alle services op:
+Dit start alle services op de achtergrond. Je kunt de links en logins bekijken in de sectie [Links en Logins overzicht](#links-en-logins-overzicht).
 
-| Service | URL |
-|---------|-----|
-| Client | http://localhost:4200 |
-| API | http://localhost:3000 |
-| Audit Service | http://localhost:3002 |
-| RabbitMQ Management | http://localhost:15672 (guest/guest) |
-| Prometheus | http://localhost:9090 |
-| Grafana | http://localhost:3001 |
-
-Stoppen:
+Om alle services weer te stoppen draai je:
 ```bash
 docker-compose down
 ```
@@ -104,6 +115,8 @@ curl http://localhost:3002/audit-logs
 Het resultaat toont een audit log met `"action": "user.created"` — bewijs dat het event via RabbitMQ is doorgekomen.
 
 ### Lokaal ontwikkelen (zonder Docker)
+
+Je kan de applicatie natuurlijk ook gewoon zonder Docker draaien. OPMERKING: RabbitMQ en de Mongo databases zul je hiervoor handmatig (of afgedwongen met losstaande dockers) up and running moeten hebben voor alles correct werkt.
 
 **API:**
 ```bash
